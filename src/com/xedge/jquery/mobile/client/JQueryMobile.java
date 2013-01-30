@@ -21,14 +21,19 @@ import com.xedge.jquery.mobile.client.model.ChangePageOptions;
 import com.xedge.jquery.mobile.client.model.LoadPageOptions;
 import com.xedge.jquery.mobile.client.model.URLSettings;
 public class JQueryMobile extends JQuery {
-	public static String SCRIPT_SRC = "http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js";
-
+	//public static String SCRIPT_SRC = "http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js";
+	  public static String SCRIPT_SRC = "http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js";
+	
 	public enum Transition {
 		none, fade, slide, slideup, slidedown, pop, flip
 	}
 
 	public enum Orientation {
 		portrait, landscape
+	}
+	
+	public enum Theme {
+		a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z
 	}
 
 	protected JQueryMobile() {
@@ -123,6 +128,24 @@ public class JQueryMobile extends JQuery {
 	public static final native void setAutoInitializePage(boolean autoInitializePage) /*-{
 		$wnd.jQuery.mobile.autoInitializePage = autoInitializePage;
 	}-*/;
+	
+	
+	
+	/**
+	 * Set the delay for touch devices to add the hover and down classes on touch interactions for buttons throughout the framework. Reducing the delay here results in a more responsive feeling ui, but will often result in the downstate being applied during page scrolling. default : 200 
+	 * @param hoverDelay
+	 */
+	public static final native void setButtonMarkupHoverDelay(int hoverDelay) /*-{
+		$wnd.jQuery.mobile.buttonMarkup.hoverDelay = hoverDelay;
+	}-*/;
+	
+	/**
+	 * Set the delay for touch devices to add the hover and down classes on touch interactions for buttons throughout the framework. Reducing the delay here results in a more responsive feeling ui, but will often result in the downstate being applied during page scrolling. default : 200
+	 * @return
+	 */
+	public static final native int getButtonMarkupHoverDelay() /*-{
+	return $wnd.jQuery.mobile.buttonMarkup.hoverDelay;
+}-*/;
 
 	/**
 	 * Enhancement to use history.replaceState in supported browsers, to convert the hash-based Ajax URL into the full document path. Note that we recommend disabling this feature if Ajax is disabled or if extensive use of external links are used.
@@ -141,6 +164,25 @@ public class JQueryMobile extends JQuery {
 		$wnd.jQuery.mobile.pushStateEnabled = pushStateEnabled;
 	}-*/;
 
+	
+	/**
+	 * Warning: Setting this property to true will cause performance degradation on enhancement. Once set, all automatic enhancements made by the framework to each enhanceable element of the user's markup will first check for a data-enhance=false parent node. If one is found the markup will be ignored. This setting and the accompanying data attribute provide a mechanism through which users can prevent enhancement over large sections of markup. default: false 
+	 * @return
+	 */
+	public static final native boolean isIgnoreContentEnabled() /*-{
+		return $wnd.jQuery.mobile.ignoreContentEnabled;
+	}-*/;
+
+	
+	/**
+	 * Warning: Setting this property to true will cause performance degradation on enhancement. Once set, all automatic enhancements made by the framework to each enhanceable element of the user's markup will first check for a data-enhance=false parent node. If one is found the markup will be ignored. This setting and the accompanying data attribute provide a mechanism through which users can prevent enhancement over large sections of markup. default: false 
+	 * @param pushStateEnabled
+	 */
+	public static final native void setIgnoreContentEnabled(boolean ignoreContentEnabled) /*-{
+		$wnd.jQuery.mobile.ignoreContentEnabled = ignoreContentEnabled;
+	}-*/;
+
+	
 	/**
 	 * Manually initialise page
 	 */
@@ -203,7 +245,7 @@ public class JQueryMobile extends JQuery {
 	}-*/;
 
 	/**
-	 * Query Mobile will automatically handle link clicks and form submissions through Ajax, when possible. If false, url hash listening will be disabled as well, and urls will load as regular http requests. default: true
+	 * jQuery Mobile will automatically handle link clicks and form submissions through Ajax, when possible. If false, url hash listening will be disabled as well, and urls will load as regular http requests. default: true
 	 * 
 	 * @return
 	 */
@@ -212,7 +254,7 @@ public class JQueryMobile extends JQuery {
 	}-*/;
 
 	/**
-	 * Query Mobile will automatically handle link clicks and form submissions through Ajax, when possible. If false, url hash listening will be disabled as well, and urls will load as regular http requests. default: true
+	 * jQuery Mobile will automatically handle link clicks and form submissions through Ajax, when possible. If false, url hash listening will be disabled as well, and urls will load as regular http requests. default: true
 	 * 
 	 * @param ajaxEnabled
 	 */
@@ -220,6 +262,27 @@ public class JQueryMobile extends JQuery {
 		$wnd.jQuery.mobile.ajaxEnabled = ajaxEnabled;
 	}-*/;
 
+	
+	
+	
+	/**
+	 * Only allow cross-domain requests if allowCrossDomainPages is true. default: false
+	 * 
+	 * @return
+	 */
+	public static final native boolean isAllowCrossDomainPages() /*-{
+		return $wnd.jQuery.mobile.allowCrossDomainPages;
+	}-*/;
+
+	/**
+	 * Only allow cross-domain requests if allowCrossDomainPages is true. default: false
+	 * 
+	 * @param allowCrossDomainPages
+	 */
+	public static final native void setAllowCrossDomainPages(boolean allowCrossDomainPages) /*-{
+		$wnd.jQuery.mobile.allowCrossDomainPages = allowCrossDomainPages;
+	}-*/;
+	
 	
 	/**
 	 * jQuery Mobile will automatically bind the clicks on anchor tags in your document. Setting this options to false will prevent all anchor click handling including the addition of active button state and alternate link bluring. This should only be used when attempting to delegate the click management to another library or custom code.
@@ -296,7 +359,7 @@ $wnd.jQuery.mobile.orientationChangeEnabled = orientationChangeEnabled;
 
 	/**
 	 * Enable pages to have self-contained native scrolling and fixed toolbars in devices that support the overflow-scrolling: touch; property. default: false
-	 * 
+	 * @deprecated 1.1.0
 	 * @return
 	 */
 	public static final native boolean isTouchOverflowEnabled() /*-{
@@ -305,7 +368,7 @@ $wnd.jQuery.mobile.orientationChangeEnabled = orientationChangeEnabled;
 
 	/**
 	 * Enable pages to have self-contained native scrolling and fixed toolbars in devices that support the overflow-scrolling: touch; property. default: false
-	 * 
+	 * @deprecated 1.1.0
 	 * @param touchOverflowEnabled
 	 */
 	public static final native void setTouchOverflowEnabled(boolean touchOverflowEnabled) /*-{
@@ -374,6 +437,52 @@ $wnd.jQuery.mobile.orientationChangeEnabled = orientationChangeEnabled;
 		$wnd.jQuery.mobile.loadingMessage = loadingMessage;
 	}-*/;
 
+	
+	
+	/**
+	 * The theme that the loading message box uses when text is visible. default: "a"
+	 */
+	public static final Theme getLoadingMessageTheme() {
+		return Theme.valueOf(getLoadingMessageThemeJS());
+	}
+	
+	private static final native String getLoadingMessageThemeJS() /*-{
+	return $wnd.jQuery.mobile.loadingMessageTheme;
+}-*/;
+
+
+	/**
+	 * The theme that the loading message box uses when text is visible. default: "a"
+	 * @param loadingMessageTheme
+	 */
+	public static final void setLoadingMessageTheme(Theme theme) {
+		setLoadingMessageTheme(theme.name());
+	}
+
+	
+	private static final native void setLoadingMessageTheme(String loadingMessageTheme) /*-{
+	$wnd.jQuery.mobile.loadingMessageTheme = loadingMessageTheme;
+}-*/;
+
+
+
+
+	/**
+	 * Whether the text should be visible when a loading message is shown. The text is always visible for loading errors. default: false
+	 * @return
+	 */
+	public static final native boolean isLoadingMessageTextVisible() /*-{
+	return $wnd.jQuery.mobile.loadingMessageTextVisible;
+}-*/;
+
+/**
+ * Whether the text should be visible when a loading message is shown. The text is always visible for loading errors. default: false
+ * @param loadingMessageTextVisible
+ */
+public static final native void setLoadingMessageTextVisible(boolean loadingMessageTextVisible) /*-{
+	$wnd.jQuery.mobile.loadingMessageTextVisible = loadingMessageTextVisible;
+}-*/;
+
 	/**
 	 * The text that appears when a page fails to load through Ajax. default: "Error Loading Page"
 	 * 
@@ -391,6 +500,32 @@ $wnd.jQuery.mobile.orientationChangeEnabled = orientationChangeEnabled;
 	public static final native void setPageLoadErrorMessage(String pageLoadErrorMessage) /*-{
 		$wnd.jQuery.mobile.pageLoadErrorMessage = pageLoadErrorMessage;
 	}-*/;
+	
+	/**
+	 * Set the theme that the error message box uses. default: "e"
+	 */
+	public static final Theme getPageLoadErrorMessageTheme() {
+		return Theme.valueOf(getPageLoadErrorMessageThemeJS());
+	}
+	
+	private static final native String getPageLoadErrorMessageThemeJS() /*-{
+	return $wnd.jQuery.mobile.pageLoadErrorMessageTheme;
+}-*/;
+
+
+	/**
+	 * Set the theme that the error message box uses. default: "e"
+	 * @param loadingMessageTheme
+	 */
+	public static final void setPageLoadErrorMessageTheme(Theme theme) {
+		setPageLoadErrorMessageTheme(theme.name());
+	}
+
+	
+	private static final native void setPageLoadErrorMessageTheme(String pageLoadErrorMessageTheme) /*-{
+	$wnd.jQuery.mobile.pageLoadErrorMessageTheme = pageLoadErrorMessageTheme;
+}-*/;
+
 
 	/**
 	 * Any support conditions that must be met in order to proceed. default: a function returning the value of $.support.mediaquery
@@ -837,6 +972,28 @@ $wnd.jQuery.mobile.orientationChangeEnabled = orientationChangeEnabled;
 	public static final native boolean jqmHasData(Element element, String key) /*-{
 		return $wnd.jQuery.jqmHasData(element, key);
 	}-*/;
+	
+	
+	/**
+	 * Filter method for users that wish to respect data-enhance=false parent elements during manual enhancement or custom plugin authoring.
+	 * Setting : If, and only if, $.mobile.ignoreContentEnabled is set to true, this method will traverse the parent nodes for each DOM element in the jQuery object and where it finds a data-enhance=false parent the child will be removed from the set.
+	 * Warning : The operation of traversing all parent elements can be expensive for even small jQuery object sets
+	 * @return
+	 */
+	public final native JavaScriptObject jqmEnhanceable() /*-{
+	return this.jqmEnhanceable();
+}-*/;
+	
+	/**
+	 * Filter method for users that wish to respect data-ajax=false parent elements during custom form and link binding.
+	 * Setting : If, and only if, $.mobile.ignoreContentEnabled is set to true, this method will traverse the parent nodes for each DOM element in the jQuery object and where it finds a data-ajax=false parent the child form or link will be removed from the set.
+	 * Warning : The operation of traversing all parent elements can be expensive for even small jQuery object sets
+	 * @return
+	 */
+	public final native JavaScriptObject jqmHijackable() /*-{
+	return this.jqmHijackable();
+}-*/;
+	
 
 	/**
 	 * Show the page loading message, which is configurable via $.mobile.loadingMessage.
@@ -845,6 +1002,46 @@ $wnd.jQuery.mobile.orientationChangeEnabled = orientationChangeEnabled;
 		$wnd.jQuery.mobile.showPageLoadingMsg();
 	}-*/;
 
+	/**
+	 * Show the page loading message
+	 * @param theme : The theme swatch for the message.  default: "a"
+	 */
+	public static final void showPageLoadingMsg(Theme theme) {
+		showPageLoadingMsg(theme.name());
+	}
+
+	private static final native void showPageLoadingMsg(String loadingMessageTheme) /*-{
+	$wnd.jQuery.mobile.showPageLoadingMsg(loadingMessageTheme);
+}-*/;
+	
+	
+	/**
+	 * Show the page loading message
+	 * @param theme : The theme swatch for the message.  default: "a"
+	 * @param msgTex : The text of the message. default: "loading"
+	 */
+	public static final void showPageLoadingMsg(Theme theme,String msgTex) {
+		showPageLoadingMsg(theme.name(),msgTex);
+	}
+
+	private static final native void showPageLoadingMsg(String loadingMessageTheme,String msgText) /*-{
+	$wnd.jQuery.mobile.showPageLoadingMsg(loadingMessageTheme,msgText);
+}-*/;
+	
+	/**
+	 * Show the page loading message
+	 * @param theme : The theme swatch for the message.  default: "a"
+	 * @param msgTex : The text of the message. default: "loading"
+	 * @param textonly :  If true, the "spinner" image will be hidden when the message is shown. default: false
+	 */
+	public static final void showPageLoadingMsg(Theme theme,String msgTex,boolean textonly) {
+		showPageLoadingMsg(theme.name(),msgTex,textonly);
+	}
+
+	private static final native void showPageLoadingMsg(String loadingMessageTheme,String msgText,boolean textonly) /*-{
+	$wnd.jQuery.mobile.showPageLoadingMsg(loadingMessageTheme,msgText,textonly);
+}-*/;
+	
 	/**
 	 * Hide the page loading message, which is configurable via $.mobile.loadingMessage.
 	 */
